@@ -1,0 +1,34 @@
+package com.example.lifecompass.service;
+
+import com.example.lifecompass.model.DecisionDocument;
+import com.example.lifecompass.repository.DecisionRepository;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Random;
+
+@Service
+public class DecisionService {
+
+    private final DecisionRepository repository;
+    private final Random random = new Random();
+
+    public DecisionService(DecisionRepository repository) {
+        this.repository = repository;
+    }
+
+    public DecisionDocument createDecision(
+            String mood, int energy, int time) {
+
+        DecisionDocument doc = new DecisionDocument();
+        doc.setMood(mood);
+        doc.setEnergyLevel(energy);
+        doc.setFreeTime(time);
+
+        doc.setSuggestion("Take it slow and focus on basics");
+        doc.setConfidence(60 + random.nextInt(30));
+        doc.setCreatedAt(LocalDateTime.now());
+
+        return repository.save(doc);
+    }
+}
