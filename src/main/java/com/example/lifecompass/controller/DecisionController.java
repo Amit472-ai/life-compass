@@ -9,6 +9,11 @@ import jakarta.validation.Valid;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
+
+
+
 
 
 @RestController
@@ -36,6 +41,13 @@ public class DecisionController {
     public DecisionDocument getLatestDecision() {
         return service.getLatestDecision()
                 .orElseThrow(() -> new RuntimeException("No decisions found"));
+    }
+    @GetMapping("/paged")
+    public Page<DecisionDocument> getDecisionsPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        return service.getDecisionsPaged(page, size);
     }
 }
 

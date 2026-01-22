@@ -9,9 +9,9 @@ import java.util.Random;
 import java.util.List;
 import java.util.Optional;
 
-
-
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 
 
@@ -44,5 +44,14 @@ public class DecisionService {
         doc.setCreatedAt(LocalDateTime.now());
 
         return repository.save(doc);
+    }
+    public Page<DecisionDocument> getDecisionsPaged(int page, int size) {
+        return repository.findAll(
+                PageRequest.of(
+                        page,
+                        size,
+                        Sort.by(Sort.Direction.DESC, "createdAt")
+                )
+        );
     }
 }
