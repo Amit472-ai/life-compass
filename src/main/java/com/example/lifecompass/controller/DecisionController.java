@@ -4,8 +4,8 @@ import com.example.lifecompass.model.DecisionDocument;
 import com.example.lifecompass.service.DecisionService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
-
+import com.example.lifecompass.dto.DecisionRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/decisions")
@@ -16,15 +16,13 @@ public class DecisionController {
     public DecisionController(DecisionService service) {
         this.service = service;
     }
-
     @PostMapping
-    public DecisionDocument createDecision(
-            @RequestParam String mood,
-            @RequestParam int energy,
-            @RequestParam int time) {
-
-        return service.createDecision(mood, energy, time);
-
+    public DecisionDocument createDecision(@Valid @RequestBody DecisionRequest request) {
+        return service.createDecision(
+                request.getMood(),
+                request.getEnergy(),
+                request.getTime()
+        );
     }
     @GetMapping
     public List<DecisionDocument> getAllDecisions() {
