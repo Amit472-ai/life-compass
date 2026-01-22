@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.List;
+
+
+
 
 @Service
 public class DecisionService {
@@ -15,6 +19,9 @@ public class DecisionService {
 
     public DecisionService(DecisionRepository repository) {
         this.repository = repository;
+    }
+    public List<DecisionDocument> getAllDecisions() {
+        return repository.findAll();
     }
 
     public DecisionDocument createDecision(

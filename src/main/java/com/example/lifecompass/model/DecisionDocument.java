@@ -1,10 +1,12 @@
 package com.example.lifecompass.model;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
+@Data   // 🔥 THIS IS THE MAGIC
 @Document(collection = "decisions")
 public class DecisionDocument {
 
@@ -19,9 +21,4 @@ public class DecisionDocument {
     private int confidence;
 
     private LocalDateTime createdAt;
-
-    public DecisionDocument() {}
-
-    // getters & setters (or Lombok)
 }
-
