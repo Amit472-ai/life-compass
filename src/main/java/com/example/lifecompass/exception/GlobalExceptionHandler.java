@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.ResponseEntity;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,5 +29,15 @@ public class GlobalExceptionHandler {
 
         return response;
     }
+    @ExceptionHandler(NoDecisionFoundException.class)
+    public ResponseEntity<?> handleNoDecisionFound(NoDecisionFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "status", 404,
+                        "message", ex.getMessage()
+                ));
+    }
+
 }
 

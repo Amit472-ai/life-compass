@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.example.lifecompass.dto.DecisionRequest;
 import jakarta.validation.Valid;
-
 import java.util.Optional;
-
 import org.springframework.data.domain.Page;
+import com.example.lifecompass.exception.NoDecisionFoundException;
+
+
+
 
 
 
@@ -40,7 +42,7 @@ public class DecisionController {
     @GetMapping("/latest")
     public DecisionDocument getLatestDecision() {
         return service.getLatestDecision()
-                .orElseThrow(() -> new RuntimeException("No decisions found"));
+                .orElseThrow(() -> new NoDecisionFoundException("No decisions found"));
     }
     @GetMapping("/paged")
     public Page<DecisionDocument> getDecisionsPaged(
