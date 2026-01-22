@@ -7,6 +7,10 @@ import java.util.List;
 import com.example.lifecompass.dto.DecisionRequest;
 import jakarta.validation.Valid;
 
+import java.util.Optional;
+
+
+
 @RestController
 @RequestMapping("/api/decisions")
 public class DecisionController {
@@ -27,6 +31,11 @@ public class DecisionController {
     @GetMapping
     public List<DecisionDocument> getAllDecisions() {
         return service.getAllDecisions();
+    }
+    @GetMapping("/latest")
+    public DecisionDocument getLatestDecision() {
+        return service.getLatestDecision()
+                .orElseThrow(() -> new RuntimeException("No decisions found"));
     }
 }
 

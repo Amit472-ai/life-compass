@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.List;
+import java.util.Optional;
+
+
+
 
 
 
@@ -22,6 +26,9 @@ public class DecisionService {
     }
     public List<DecisionDocument> getAllDecisions() {
         return repository.findAll();
+    }
+    public Optional<DecisionDocument> getLatestDecision() {
+        return repository.findTopByOrderByCreatedAtDesc();
     }
 
     public DecisionDocument createDecision(
